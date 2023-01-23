@@ -50,6 +50,7 @@ public class Main {
         Map<String, List<String>> map = new HashMap<>();
         try {
             input = new BufferedReader(new FileReader("Pokemons.csv"));
+            removeFirstLine(input);
             String line;
             while ((line = input.readLine()) != null) {
                 String[] items = line.split(",");
@@ -75,5 +76,9 @@ public class Main {
             }
         }
         return map;
+    }
+
+    private static void removeFirstLine(BufferedReader input) throws IOException {
+        String line = input.readLine();
     }
 }
