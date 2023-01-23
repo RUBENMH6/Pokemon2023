@@ -7,26 +7,42 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String answer = "";
         while(!answer.equals("exit")) {
-            System.out.println("Enter type of the pokemon ('exit' to finish):");
-            answer = in.nextLine().toLowerCase();
+            answer = promptUser(in);
             if (!answer.equals("exit")) {
                 List<String> list = map.get(answer);
-                if (list == null) {
-                    System.out.println("Type " + answer + " not found");
-                } else {
-                    boolean first = true;
-                    for (String s : list) {
-                        if (first) {
-                            first = false;
-                        } else {
-                            System.out.print(", ");
-                        }
-                        System.out.print(s);
-                    }
-                    System.out.println();
-                }
+                printList(answer, list);
             }
         }
+    }
+
+    private static void printList(String type, List<String> list) {
+        if (existType(type, list)) {
+            boolean first = true;
+            for (String s : list) {
+                if (first) {
+                    first = false;
+                } else {
+                    System.out.print(", ");
+                }
+                System.out.print(s);
+            }
+            System.out.println();
+        }
+    }
+    public static boolean existType (String type, List<String> list) {
+        if (list == null) {
+            System.out.println("Type " + type + " not found");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private static String promptUser(Scanner in) {
+        String answer;
+        System.out.println("Enter type of the pokemon ('exit' to finish):");
+        answer = in.nextLine().toLowerCase();
+        return answer;
     }
 
     public static Map<String, List<String>> readFromCSV() throws IOException {
